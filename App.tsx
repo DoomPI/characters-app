@@ -1,6 +1,6 @@
 import React from "react";
-import CharactersListView from "./app/feature/characters-list-feature/presentation/view/CharactersListView";
+import CharactersApp from "./app/characters-app/CharactersApp";
 
 export default function App() {
-    return <CharactersListView/>
+    return <CharactersApp/>
 }

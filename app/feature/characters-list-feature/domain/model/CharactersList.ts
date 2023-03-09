@@ -1,0 +1,11 @@
+import {Character} from "./Character";
+
+export class CharactersList {
+    readonly data: Character[]
+
+    constructor(
+        data: Character[],
+    ) {
+        this.data = data
+    }
+}

@@ -1,4 +1,10 @@
-import {CharacterRepositoryImpl} from "../../data/repository/CharacterRepositoryImpl";
-import {CharacterRepository} from "../../domain/repository/CharacterRepository";
+import {CharactersListUseCases} from "../../domain/usecases/CharactersListUseCases";
 
-export const charactersRepository: CharacterRepository = new CharacterRepositoryImpl()
+export class CharactersListComponent {
+
+    readonly useCases: CharactersListUseCases
+
+    constructor(useCases: CharactersListUseCases) {
+        this.useCases = useCases
+    }
+}

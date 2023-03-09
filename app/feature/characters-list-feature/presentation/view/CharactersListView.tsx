@@ -1,55 +1,45 @@
 import {FlatList, Image, TextInput, View} from "react-native";
-import {charactersRepository} from "../component/CharactersListComponent";
+import {CharactersListComponent} from "../component/CharactersListComponent";
 import {Character} from "../../domain/model/Character";
 import React, {useState} from "react";
+import {styles} from "./CharactersListStyles";
 
-export default function CharactersListView() {
+export default function CharactersListView(component: CharactersListComponent) {
     const [characters, setCharacters] = useState<Character[]>([])
 
     return (
-        <View
-            style={
-                {
-                    height: "100%",
-                    flexDirection: 'column',
-                }
-            }
-        >
+        <View style={styles.charactersMainView}>
             <TextInput
-                style={{height: "20%"}}
+                style={styles.searchInput}
                 placeholder={"Search..."}
                 onSubmitEditing={(event) => {
-                    charactersRepository
+                    component
+                        .useCases
                         .searchCharacters(event.nativeEvent.text)
-                        .then(characters => setCharacters(characters))
+                        .then(characters => setCharacters(characters.data))
                 }}
             />
 
             <FlatList
-                style={{height: "80%"}}
+                style={styles.charactersList}
                 numColumns={3}
                 data={characters}
-                onLayout={ () =>
-                    charactersRepository
-                        .getAllCharactersList()
-                        .then(characters => setCharacters(characters))
+                onLayout={() =>
+                    component
+                        .useCases
+                        .getCharactersList()
+                        .then(characters => setCharacters(characters.data))
                 }
                 renderItem={({item}) =>
-                    (
-                        <Image
-                            style={{
-                                flex: 1,
-                                margin: 5,
-                                height: 130,
-                            }}
-                            source={
-                                item.imageUrl
-                                    ? {uri: item.imageUrl}
-                                    : {}
-                            }
-                        />
-
-                    )}
+                    <Image
+                        style={styles.characterImage}
+                        source={
+                            item.imageUrl
+                                ? {uri: item.imageUrl}
+                                : {}
+                        }
+                    />
+                }
             />
         </View>
     )

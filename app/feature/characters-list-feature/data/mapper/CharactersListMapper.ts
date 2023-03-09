@@ -1,11 +1,17 @@
 import {Character} from "../../domain/model/Character";
+import {CharactersList} from "../../domain/model/CharactersList";
+import {CharactersListDto} from "../dto/CharactersListDto";
 
-export function mapCharacters(charactersList: CharactersListDto): Character[] {
-    return charactersList.data
+export function map(charactersList: CharactersListDto): CharactersList {
+    let data = charactersList.data
         ? charactersList.data.map(dto =>
             mapCharacter(dto)
         )
         : []
+
+    return new CharactersList(
+        data
+    )
 }
 
 export function mapCharacter(dto: CharacterDto): Character {
