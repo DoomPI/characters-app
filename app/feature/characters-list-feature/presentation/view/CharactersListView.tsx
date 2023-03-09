@@ -1,6 +1,6 @@
 import {FlatList, Image, TextInput, View} from "react-native";
 import {charactersRepository} from "../component/CharactersListComponent";
-import {Character} from "../../../../common/domain/model/Character";
+import {Character} from "../../domain/model/Character";
 import React, {useState} from "react";
 
 export default function CharactersListView() {
@@ -29,6 +29,11 @@ export default function CharactersListView() {
                 style={{height: "80%"}}
                 numColumns={3}
                 data={characters}
+                onLayout={ () =>
+                    charactersRepository
+                        .getAllCharactersList()
+                        .then(characters => setCharacters(characters))
+                }
                 renderItem={({item}) =>
                     (
                         <Image
