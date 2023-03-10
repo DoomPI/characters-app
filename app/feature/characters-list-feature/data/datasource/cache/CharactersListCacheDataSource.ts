@@ -8,37 +8,42 @@ const LOG_TAG = "CharactersListCacheDataSource"
 
 export function setCharactersList(charactersList: CharactersListCacheDto): Promise<void> {
     return db.then((db) => {
-        const character = charactersList.data[6]
         const query = `INSERT OR REPLACE INTO Characters VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-        const args = [
-            character.id,
-            character.name,
-            character.films,
-            character.shortFilms,
-            character.tvShows,
-            character.videoGames,
-            character.parkAttractions,
-            character.allies,
-            character.enemies,
-            character.imageUrl,
-            character.url,
-        ]
+        const data = charactersList.data
 
         return new Promise((resolve, reject) => {
             db.transaction(
-                (tx) => tx.executeSql(
-                    query,
-                    args,
-                    () => {
-                        Logger.i(LOG_TAG, `setCharactersList ${charactersList}`)
-                        resolve()
-                    },
-                    (_, error) => {
-                        Logger.e(LOG_TAG, error.message)
-                        reject(error)
-                        return false
+                (tx) => {
+                    for (let index = 0; index < data.length; ++index) {
+                        const character = data[index]
+                        const args = [
+                            character.id,
+                            character.name,
+                            character.films,
+                            character.shortFilms,
+                            character.tvShows,
+                            character.videoGames,
+                            character.parkAttractions,
+                            character.allies,
+                            character.enemies,
+                            character.imageUrl,
+                            character.url,
+                        ]
+                        tx.executeSql(
+                            query,
+                            args,
+                            () => {
+                                Logger.i(LOG_TAG, `setCharactersList ${character}`)
+                                resolve()
+                            },
+                            (_, error) => {
+                                Logger.e(LOG_TAG, error.message)
+                                reject(error)
+                                return false
+                            }
+                        )
                     }
-                )
+                }
             )
         })
     })

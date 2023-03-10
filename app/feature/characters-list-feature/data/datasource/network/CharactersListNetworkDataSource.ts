@@ -1,4 +1,5 @@
 import sendRequest from "../../../../../core/worker/NetworkWorker";
+import {CharactersListNetworkDto} from "./dto/CharactersListNetworkDto";
 
 const DISNEY_API_URL = "https://api.disneyapi.dev/"
 const SEARCH_CHARACTER_ENDPOINT = "character?name="
