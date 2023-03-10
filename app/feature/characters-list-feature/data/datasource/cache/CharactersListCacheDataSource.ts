@@ -31,19 +31,19 @@ export function setCharactersList(charactersList: CharactersListCacheDto): Promi
                         ]
                         tx.executeSql(
                             query,
-                            args,
-                            () => {
-                                Logger.i(LOG_TAG, `setCharactersList ${character}`)
-                                resolve()
-                            },
-                            (_, error) => {
-                                Logger.e(LOG_TAG, error.message)
-                                reject(error)
-                                return false
-                            }
+                            args
                         )
                     }
-                }
+                },
+                (error) => {
+                    Logger.e(LOG_TAG, error.message)
+                    reject(error)
+                    return false
+                },
+                () => {
+                    Logger.i(LOG_TAG, `setCharactersList ${charactersList}`)
+                    resolve()
+                },
             )
         })
     })
@@ -61,7 +61,7 @@ export function getCharactersList(): Promise<CharactersListCacheDto> {
                     query,
                     undefined,
                     (_, resultSet: SQLResultSet) => {
-                        Logger.i(LOG_TAG, `getCharactersList ${resultSet.rows._array}`)
+                        Logger.i(LOG_TAG, `getCharactersList ${resultSet}`)
                         resolve(fillCharactersList(resultSet))
                     },
                     (_, error) => {

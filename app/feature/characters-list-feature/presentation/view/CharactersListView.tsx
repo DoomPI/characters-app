@@ -20,7 +20,7 @@ export default function CharactersListView(component: CharactersListComponent) {
                         .useCases
                         .searchCharacters(event.nativeEvent.text)
                         .then(characters => {
-                            Logger.i(LOG_TAG, `Setting characters ${characters.data}`)
+                            Logger.i(LOG_TAG, `Setting characters ${characters}`)
                             setCharacters(characters.data)
                         })
                 }}
