@@ -1,5 +1,5 @@
-import {CharactersListComponent} from "../component/CharactersListComponent";
+import {CharactersListPresenter} from "../presenter/CharactersListPresenter";
 
 export interface CharactersListViewProps {
-    component: CharactersListComponent
+    presenter: CharactersListPresenter
 }

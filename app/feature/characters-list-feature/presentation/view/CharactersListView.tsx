@@ -17,7 +17,7 @@ export default function CharactersListView(props: CharactersListViewProps) {
                 placeholder={"Search..."}
                 onSubmitEditing={(event) => {
                     props
-                        .component
+                        .presenter
                         .searchCharacters(event.nativeEvent.text)
                         .then(characters => {
                             Logger.i(LOG_TAG, `Setting characters ${characters}`)
@@ -32,7 +32,7 @@ export default function CharactersListView(props: CharactersListViewProps) {
                 data={characters}
                 onLayout={() =>
                     props
-                        .component
+                        .presenter
                         .getCharactersList()
                         .then(characters => setCharacters(characters.data))
                 }

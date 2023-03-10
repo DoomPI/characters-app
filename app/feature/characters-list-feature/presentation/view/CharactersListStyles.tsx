@@ -7,16 +7,18 @@ export const styles = StyleSheet.create({
     },
 
     searchInput: {
-        height: "20%",
+        height: "7%",
+        backgroundColor: "red",
+        textAlignVertical: "center"
     },
 
     charactersList: {
-        height: "80%",
+        height: "93%",
     },
 
     characterImage: {
         flex: 1,
         margin: 5,
         height: 200,
-    }
+    },
 })

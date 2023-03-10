@@ -7,8 +7,11 @@ import {CharactersListUseCases} from "../feature/characters-list-feature/domain/
 import {GetCharactersListUseCase} from "../feature/characters-list-feature/domain/usecases/GetCharactersListUseCase";
 import {SearchCharacterUseCase} from "../feature/characters-list-feature/domain/usecases/SearchCharacterUseCase";
 import {
-    CharactersListComponent
-} from "../feature/characters-list-feature/presentation/component/CharactersListComponent";
+    CharactersListPresenter
+} from "../feature/characters-list-feature/presentation/presenter/CharactersListPresenter";
+import {SafeAreaView, StatusBar, View} from "react-native";
+import {styles} from "./CharactersAppStyles";
+import {Platform} from "react-native";
 
 export default function CharactersApp() {
     const charactersRepository: CharactersListRepository = new CharactersListRepositoryImpl()
@@ -16,9 +19,27 @@ export default function CharactersApp() {
         new GetCharactersListUseCase(charactersRepository),
         new SearchCharacterUseCase(charactersRepository),
     )
-    const component = new CharactersListComponent(
+    const presenter = new CharactersListPresenter(
         useCases,
     )
 
-    return <CharactersListView component={component} />
+    const AppStatusBar = () => {
+        switch (Platform.OS) {
+            case "android":
+                return <StatusBar translucent backgroundColor={styles.statusBar.backgroundColor}/>
+            case "ios":
+                return <SafeAreaView style={styles.statusBar}/>
+            default:
+                return null
+        }
+    }
+
+    return (
+        <View>
+            <AppStatusBar />
+            <View style={styles.mainContentView}>
+                <CharactersListView presenter={presenter} />
+            </View>
+        </View>
+    )
 }

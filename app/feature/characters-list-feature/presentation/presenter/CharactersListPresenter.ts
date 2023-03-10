@@ -1,7 +1,7 @@
 import {CharactersListUseCases} from "../../domain/usecases/CharactersListUseCases";
 import {CharactersList} from "../../domain/model/CharactersList";
 
-export class CharactersListComponent {
+export class CharactersListPresenter {
 
     private readonly useCases: CharactersListUseCases
 
