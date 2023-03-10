@@ -1,12 +1,14 @@
-export class CharactersListDto {
-    data?: CharacterDto[]
+import {CharacterNetworkDto} from "./CharacterNetworkDto";
+
+export class CharactersListNetworkDto {
+    data?: CharacterNetworkDto[]
     count?: number
     totalPages?: number
     nextPage?: string
     previousPage?: string
 
     constructor(
-        data?: CharacterDto[],
+        data?: CharacterNetworkDto[],
         count?: number,
         totalPages?: number,
         nextPage?: string,

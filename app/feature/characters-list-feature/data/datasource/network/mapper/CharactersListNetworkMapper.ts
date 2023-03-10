@@ -1,8 +1,9 @@
-import {Character} from "../../domain/model/Character";
-import {CharactersList} from "../../domain/model/CharactersList";
-import {CharactersListDto} from "../dto/CharactersListDto";
+import {Character} from "../../../../domain/model/Character";
+import {CharactersList} from "../../../../domain/model/CharactersList";
+import {CharactersListNetworkDto} from "../dto/CharactersListNetworkDto";
+import {CharacterNetworkDto} from "../dto/CharacterNetworkDto";
 
-export function map(charactersList: CharactersListDto): CharactersList {
+export function map(charactersList: CharactersListNetworkDto): CharactersList {
     let data = charactersList.data
         ? charactersList.data.map(dto =>
             mapCharacter(dto)
@@ -14,7 +15,7 @@ export function map(charactersList: CharactersListDto): CharactersList {
     )
 }
 
-export function mapCharacter(dto: CharacterDto): Character {
+export function mapCharacter(dto: CharacterNetworkDto): Character {
     const id = dto._id!
     const name = dto.name!
     const films = dto.films ? dto.films : []

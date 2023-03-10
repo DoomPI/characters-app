@@ -1,30 +1,41 @@
-import {Character} from "../../../domain/model/Character";
-import {CharactersList} from "../../../domain/model/CharactersList";
-import {db} from "../../../../../core/db/CharactersAppDatabase";
+import {db} from "../../../../../common/db/CharactersAppDatabase";
 import {SQLResultSet} from "expo-sqlite";
+import {CharactersListCacheDto} from "./dto/CharactersListCacheDto";
+import {CharacterCacheDto} from "./dto/CharacterCacheDto";
+import {Logger} from "../../../../../core/logger/Logger";
 
-export function setCharactersList(charactersList: CharactersList): Promise<void> {
+const LOG_TAG = "CharactersListCacheDataSource"
+
+export function setCharactersList(charactersList: CharactersListCacheDto): Promise<void> {
     return db.then((db) => {
-        const character = charactersList.data[0]
-        const query = `INSERT OR REPLACE INTO Characters VALUES(?, ?, ?, ?)`
+        const character = charactersList.data[6]
+        const query = `INSERT OR REPLACE INTO Characters VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         const args = [
             character.id,
             character.name,
+            character.films,
+            character.shortFilms,
+            character.tvShows,
+            character.videoGames,
+            character.parkAttractions,
+            character.allies,
+            character.enemies,
             character.imageUrl,
             character.url,
         ]
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             db.transaction(
                 (tx) => tx.executeSql(
                     query,
                     args,
                     () => {
+                        Logger.i(LOG_TAG, `setCharactersList ${charactersList}`)
                         resolve()
                     },
-                    (transaction, error) => {
-                        console.error(error.message)
-                        console.error(query)
+                    (_, error) => {
+                        Logger.e(LOG_TAG, error.message)
+                        reject(error)
                         return false
                     }
                 )
@@ -33,21 +44,25 @@ export function setCharactersList(charactersList: CharactersList): Promise<void>
     })
 }
 
-export function getCharactersList(): Promise<CharactersList> {
+export function getCharactersList(): Promise<CharactersListCacheDto> {
     return db.then((db) => {
         const query = `
             SELECT * FROM Characters
         `
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             db.transaction((tx) =>
                 tx.executeSql(
                     query,
                     undefined,
                     (_, resultSet: SQLResultSet) => {
-                        console.log(resultSet.rows._array)
+                        Logger.i(LOG_TAG, `getCharactersList ${resultSet.rows._array}`)
                         resolve(fillCharactersList(resultSet))
                     },
+                    (_, error) => {
+                        reject(error)
+                        return false
+                    }
                 )
             )
         })
@@ -60,23 +75,23 @@ const fillCharactersList = (resultSet: SQLResultSet) => {
     for (let index = 0; index < resultSet.rows.length; ++index) {
         let item = resultSet.rows.item(index)
         characters.push(
-            new Character(
+            new CharacterCacheDto(
                 item.id,
                 item.name,
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
+                item.films,
+                item.shortFilms,
+                item.tvShows,
+                item.videoGames,
+                item.parkAttractions,
+                item.allies,
+                item.enemies,
                 item.imageUrl,
                 item.url
             )
         )
     }
 
-    return new CharactersList(
+    return new CharactersListCacheDto(
         characters,
     )
 }

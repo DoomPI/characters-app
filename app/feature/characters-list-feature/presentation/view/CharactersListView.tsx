@@ -3,6 +3,9 @@ import {CharactersListComponent} from "../component/CharactersListComponent";
 import {Character} from "../../domain/model/Character";
 import React, {useState} from "react";
 import {styles} from "./CharactersListStyles";
+import {Logger} from "../../../../core/logger/Logger";
+
+const LOG_TAG = "CharactersListView"
 
 export default function CharactersListView(component: CharactersListComponent) {
     const [characters, setCharacters] = useState<Character[]>([])
@@ -17,7 +20,7 @@ export default function CharactersListView(component: CharactersListComponent) {
                         .useCases
                         .searchCharacters(event.nativeEvent.text)
                         .then(characters => {
-                            console.log(`Setting character ${characters.data[0].name}`)
+                            Logger.i(LOG_TAG, `Setting characters ${characters.data}`)
                             setCharacters(characters.data)
                         })
                 }}

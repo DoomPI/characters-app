@@ -1,4 +1,4 @@
-class CharacterDto {
+export class CharacterNetworkDto {
     films?: string[]
     shortFilms?: string[]
     _id?: number
