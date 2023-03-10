@@ -1,4 +1,4 @@
-import {db} from "../../../../../common/db/CharactersAppDatabase";
+import {db} from "../../../../../common/data/datasource/cache/db/CharactersAppDatabase";
 import {SQLResultSet} from "expo-sqlite";
 import {CharactersListCacheDto} from "./dto/CharactersListCacheDto";
 import {CharacterCacheDto} from "./dto/CharacterCacheDto";

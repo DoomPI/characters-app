@@ -1,5 +1,5 @@
 import {CharactersList} from "../../../../domain/model/CharactersList";
-import {Character} from "../../../../domain/model/Character";
+import {Character} from "../../../../../../common/domain/model/Character";
 import {CharactersListCacheDto} from "../dto/CharactersListCacheDto";
 import {CharacterCacheDto} from "../dto/CharacterCacheDto";
 

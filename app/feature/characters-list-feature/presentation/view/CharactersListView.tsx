@@ -1,6 +1,6 @@
 import {FlatList, Image, TextInput, View} from "react-native";
 import {CharactersListComponent} from "../component/CharactersListComponent";
-import {Character} from "../../domain/model/Character";
+import {Character} from "../../../../common/domain/model/Character";
 import React, {useState} from "react";
 import {styles} from "./CharactersListStyles";
 import {Logger} from "../../../../core/logger/Logger";

@@ -1,4 +1,4 @@
-import {Character} from "../../../../domain/model/Character";
+import {Character} from "../../../../../../common/domain/model/Character";
 import {CharactersList} from "../../../../domain/model/CharactersList";
 import {CharactersListNetworkDto} from "../dto/CharactersListNetworkDto";
 import {CharacterNetworkDto} from "../dto/CharacterNetworkDto";
