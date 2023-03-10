@@ -62,9 +62,10 @@ export function getCharactersList(): Promise<CharactersListCacheDto> {
                     undefined,
                     (_, resultSet: SQLResultSet) => {
                         Logger.i(LOG_TAG, `getCharactersList ${resultSet}`)
-                        resolve(fillCharactersList(resultSet))
+                        resolve(parseCharactersList(resultSet))
                     },
                     (_, error) => {
+                        Logger.e(LOG_TAG, error.message)
                         reject(error)
                         return false
                     }
@@ -74,7 +75,38 @@ export function getCharactersList(): Promise<CharactersListCacheDto> {
     })
 }
 
-const fillCharactersList = (resultSet: SQLResultSet) => {
+export function searchCharacters(searchText: string): Promise<CharactersListCacheDto> {
+    return db.then((db) => {
+        const searchTextFormatted = searchText.toLowerCase()
+        const query = `
+            SELECT * FROM Characters WHERE INSTR(LOWER(name), ?) > 0 OR INSTR(?, LOWER(name)) > 0
+        `
+        const args = [
+            searchTextFormatted,
+            searchTextFormatted,
+        ]
+
+        return new Promise((resolve, reject) => {
+            db.transaction((tx) => {
+                tx.executeSql(
+                    query,
+                    args,
+                    (_, resultSet: SQLResultSet) => {
+                        Logger.i(LOG_TAG, `searchCharacters ${resultSet}`)
+                        resolve(parseCharactersList(resultSet))
+                    },
+                    (_, error) => {
+                        Logger.e(LOG_TAG, error.message)
+                        reject(error)
+                        return false
+                    }
+                )
+            })
+        })
+    })
+}
+
+const parseCharactersList = (resultSet: SQLResultSet) => {
     let characters = []
 
     for (let index = 0; index < resultSet.rows.length; ++index) {

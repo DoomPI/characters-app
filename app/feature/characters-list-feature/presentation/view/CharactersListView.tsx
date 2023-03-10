@@ -1,13 +1,13 @@
 import {FlatList, Image, TextInput, View} from "react-native";
-import {CharactersListComponent} from "../component/CharactersListComponent";
 import {Character} from "../../../../common/domain/model/Character";
 import React, {useState} from "react";
 import {styles} from "./CharactersListStyles";
 import {Logger} from "../../../../core/logger/Logger";
+import {CharactersListViewProps} from "./CharactersListViewProps";
 
 const LOG_TAG = "CharactersListView"
 
-export default function CharactersListView(component: CharactersListComponent) {
+export default function CharactersListView(props: CharactersListViewProps) {
     const [characters, setCharacters] = useState<Character[]>([])
 
     return (
@@ -16,8 +16,8 @@ export default function CharactersListView(component: CharactersListComponent) {
                 style={styles.searchInput}
                 placeholder={"Search..."}
                 onSubmitEditing={(event) => {
-                    component
-                        .useCases
+                    props
+                        .component
                         .searchCharacters(event.nativeEvent.text)
                         .then(characters => {
                             Logger.i(LOG_TAG, `Setting characters ${characters}`)
@@ -31,8 +31,8 @@ export default function CharactersListView(component: CharactersListComponent) {
                 numColumns={3}
                 data={characters}
                 onLayout={() =>
-                    component
-                        .useCases
+                    props
+                        .component
                         .getCharactersList()
                         .then(characters => setCharacters(characters.data))
                 }

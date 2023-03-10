@@ -5,7 +5,7 @@ const DISNEY_API_URL = "https://api.disneyapi.dev/"
 const SEARCH_CHARACTER_ENDPOINT = "character?name="
 const ALL_CHARACTERS_ENDPOINT = "characters?page=1"
 
-export function searchCharacters(searchText: String): Promise<CharactersListNetworkDto> {
+export function searchCharacters(searchText: string): Promise<CharactersListNetworkDto> {
     if (searchText == "") {
         return getCharactersList()
     }

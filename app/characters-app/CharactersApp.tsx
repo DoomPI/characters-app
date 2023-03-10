@@ -6,6 +6,9 @@ import {
 import {CharactersListUseCases} from "../feature/characters-list-feature/domain/usecases/CharactersListUseCases";
 import {GetCharactersListUseCase} from "../feature/characters-list-feature/domain/usecases/GetCharactersListUseCase";
 import {SearchCharacterUseCase} from "../feature/characters-list-feature/domain/usecases/SearchCharacterUseCase";
+import {
+    CharactersListComponent
+} from "../feature/characters-list-feature/presentation/component/CharactersListComponent";
 
 export default function CharactersApp() {
     const charactersRepository: CharactersListRepository = new CharactersListRepositoryImpl()
@@ -13,6 +16,9 @@ export default function CharactersApp() {
         new GetCharactersListUseCase(charactersRepository),
         new SearchCharacterUseCase(charactersRepository),
     )
+    const component = new CharactersListComponent(
+        useCases,
+    )
 
-    return <CharactersListView useCases={useCases} />
+    return <CharactersListView component={component} />
 }

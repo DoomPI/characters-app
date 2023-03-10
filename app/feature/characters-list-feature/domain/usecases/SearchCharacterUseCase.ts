@@ -8,7 +8,7 @@ export class SearchCharacterUseCase {
         this.charactersListRepository = charactersListRepository
     }
 
-    execute(searchText: String) {
+    execute(searchText: string) {
         return this.charactersListRepository.searchCharacters(searchText)
             .then((charactersList) => charactersList)
     }
