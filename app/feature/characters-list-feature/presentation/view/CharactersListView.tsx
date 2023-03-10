@@ -16,7 +16,10 @@ export default function CharactersListView(component: CharactersListComponent) {
                     component
                         .useCases
                         .searchCharacters(event.nativeEvent.text)
-                        .then(characters => setCharacters(characters.data))
+                        .then(characters => {
+                            console.log(`Setting character ${characters.data[0].name}`)
+                            setCharacters(characters.data)
+                        })
                 }}
             />
 

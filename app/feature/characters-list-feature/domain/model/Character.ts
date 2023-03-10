@@ -8,8 +8,8 @@ export class Character {
     readonly parkAttractions: string[]
     readonly allies: string[]
     readonly enemies: string[]
-    readonly imageUrl?: string
-    readonly url?: string
+    readonly imageUrl: string | null
+    readonly url: string | null
 
     constructor(
         id: number,
@@ -21,8 +21,8 @@ export class Character {
         parkAttractions: string[],
         allies: string[],
         enemies: string[],
-        imageUrl?: string,
-        url?: string,
+        imageUrl: string | null,
+        url: string | null,
     ) {
         this.id = id
         this.name = name

@@ -10,5 +10,9 @@ export class SearchCharacterUseCase {
 
     execute(searchText: String) {
         return this.charactersListRepository.searchCharacters(searchText)
+            .then((charactersList) => {
+                console.log(charactersList.data[0].imageUrl)
+                return charactersList
+            })
     }
 }

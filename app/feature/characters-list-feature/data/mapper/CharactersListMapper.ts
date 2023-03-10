@@ -24,8 +24,8 @@ export function mapCharacter(dto: CharacterDto): Character {
     const parkAttractions = dto.parkAttractions ? dto.parkAttractions : []
     const allies = dto.allies ? dto.allies : []
     const enemies = dto.enemies ? dto.enemies : []
-    const imageUrl = dto.imageUrl
-    const url = dto.url
+    const imageUrl = dto.imageUrl ? dto.imageUrl : null
+    const url = dto.url ? dto.url : null
 
     return new Character(
         id,
