@@ -9,9 +9,8 @@ import {SearchCharacterUseCase} from "../feature/characters-list-feature/domain/
 import {
     CharactersListPresenter
 } from "../feature/characters-list-feature/presentation/presenter/CharactersListPresenter";
-import {SafeAreaView, StatusBar, View} from "react-native";
-import {styles} from "./CharactersAppStyles";
-import {Platform} from "react-native";
+import {View} from "react-native";
+import AppStatusBar from "../feature/status-bar-feature/presentation/view/AppStatusBar";
 
 export default function CharactersApp() {
     const charactersRepository: CharactersListRepository = new CharactersListRepositoryImpl()
@@ -23,23 +22,10 @@ export default function CharactersApp() {
         useCases,
     )
 
-    const AppStatusBar = () => {
-        switch (Platform.OS) {
-            case "android":
-                return <StatusBar translucent backgroundColor={styles.statusBar.backgroundColor}/>
-            case "ios":
-                return <SafeAreaView style={styles.statusBar}/>
-            default:
-                return null
-        }
-    }
-
     return (
         <View>
-            <AppStatusBar />
-            <View style={styles.mainContentView}>
-                <CharactersListView presenter={presenter} />
-            </View>
+            <AppStatusBar/>
+            <CharactersListView presenter={presenter}/>
         </View>
     )
 }
