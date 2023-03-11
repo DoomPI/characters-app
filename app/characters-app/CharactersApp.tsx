@@ -2,6 +2,7 @@ import CharactersListView from "../component/characters-list-component/presentat
 import {View} from "react-native";
 import AppStatusBar from "../component/status-bar-component/presentation/view/AppStatusBar";
 import {charactersListModule} from "./di/CharactersAppModule";
+import {styles} from "./CharactersAppStyles";
 
 export default function CharactersApp() {
 
@@ -10,7 +11,9 @@ export default function CharactersApp() {
     return (
         <View>
             <AppStatusBar/>
-            <CharactersListView presenter={charactersListProps.presenter}/>
+            <View style={styles.mainContentView}>
+                <CharactersListView presenter={charactersListProps.presenter}/>
+            </View>
         </View>
     )
 }

@@ -5,9 +5,10 @@ import {CharacterCacheDto} from "./dto/CharacterCacheDto";
 import {Logger} from "../../../../../core/logger/Logger";
 
 const LOG_TAG = "CharactersListCacheDataSource"
+const table = createTable()
 
 export function setCharactersList(charactersList: CharactersListCacheDto): Promise<void> {
-    return db.then((db) => {
+    return table.then(() => {
         const query = `INSERT OR REPLACE INTO Characters VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         const data = charactersList.data
 
@@ -50,7 +51,7 @@ export function setCharactersList(charactersList: CharactersListCacheDto): Promi
 }
 
 export function getCharactersList(): Promise<CharactersListCacheDto> {
-    return db.then((db) => {
+    return table.then(() => {
         const query = `
             SELECT * FROM Characters
         `
@@ -76,7 +77,7 @@ export function getCharactersList(): Promise<CharactersListCacheDto> {
 }
 
 export function searchCharacters(searchText: string): Promise<CharactersListCacheDto> {
-    return db.then((db) => {
+    return table.then(() => {
         const searchTextFormatted = searchText.toLowerCase()
         const query = `
             SELECT * FROM Characters WHERE INSTR(LOWER(name), ?) > 0 OR INSTR(?, LOWER(name)) > 0
@@ -103,6 +104,35 @@ export function searchCharacters(searchText: string): Promise<CharactersListCach
                 )
             })
         })
+    })
+}
+
+function createTable(): Promise<void> {
+    const query = `
+        CREATE TABLE IF NOT EXISTS Characters(
+            id INTEGER PRIMARY KEY NOT NULL,
+            name TEXT NOT NULL,
+            films TEXT NOT NULL,
+            shortFilms TEXT NOT NULL,
+            tvShows TEXT NOT NULL,
+            videoGames TEXT NOT NULL,
+            parkAttractions TEXT NOT NULL,
+            allies TEXT NOT NULL,
+            enemies TEXT NOT NULL,
+            imageUrl TEXT NULL,
+            url TEXT NULL
+        );
+    `
+    return new Promise((resolve, reject) => {
+        db.transaction(
+            (tx) => {
+                tx.executeSql(
+                    query
+                )
+            },
+            () => reject(),
+            () => resolve(),
+        )
     })
 }
 
