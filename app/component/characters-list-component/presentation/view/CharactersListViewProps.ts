@@ -1,5 +1,5 @@
 import {CharactersListPresenter} from "../presenter/CharactersListPresenter";
 
-export interface CharactersListViewProps {
+export type CharactersListViewProps = {
     presenter: CharactersListPresenter
 }
