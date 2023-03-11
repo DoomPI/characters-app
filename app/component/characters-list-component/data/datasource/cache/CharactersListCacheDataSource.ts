@@ -5,125 +5,117 @@ import {CharacterCacheDto} from "./dto/CharacterCacheDto";
 import {Logger} from "../../../../../core/logger/Logger";
 
 const LOG_TAG = "CharactersListCacheDataSource"
+const TABLE_NAME = "Characters"
 const table = createTable()
 
 export function setCharactersList(charactersList: CharactersListCacheDto): Promise<void> {
-    return table.then(() => {
-        const query = `INSERT OR REPLACE INTO Characters VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    return table.then(() => new Promise((resolve, reject) => {
+        const query = `INSERT OR REPLACE INTO ${TABLE_NAME} VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         const data = charactersList.data
-
-        return new Promise((resolve, reject) => {
-            db.transaction(
-                (tx) => {
-                    for (let index = 0; index < data.length; ++index) {
-                        const character = data[index]
-                        const args = [
-                            character.id,
-                            character.name,
-                            character.films,
-                            character.shortFilms,
-                            character.tvShows,
-                            character.videoGames,
-                            character.parkAttractions,
-                            character.allies,
-                            character.enemies,
-                            character.imageUrl,
-                            character.url,
-                        ]
-                        tx.executeSql(
-                            query,
-                            args
-                        )
-                    }
-                },
-                (error) => {
-                    Logger.e(LOG_TAG, error.message)
-                    reject(error)
-                    return false
-                },
-                () => {
-                    Logger.i(LOG_TAG, `setCharactersList ${charactersList}`)
-                    resolve()
-                },
-            )
-        })
-    })
+        db.transaction(
+            (tx) => {
+                for (let index = 0; index < data.length; ++index) {
+                    const character = data[index]
+                    const args = [
+                        character.id,
+                        character.name,
+                        character.films,
+                        character.shortFilms,
+                        character.tvShows,
+                        character.videoGames,
+                        character.parkAttractions,
+                        character.allies,
+                        character.enemies,
+                        character.imageUrl,
+                        character.url,
+                    ]
+                    tx.executeSql(
+                        query,
+                        args
+                    )
+                }
+            },
+            (error) => {
+                Logger.e(LOG_TAG, error.message)
+                reject(error)
+                return false
+            },
+            () => {
+                Logger.i(LOG_TAG, `setCharactersList ${charactersList}`)
+                resolve()
+            },
+        )
+    }))
 }
 
 export function getCharactersList(): Promise<CharactersListCacheDto> {
-    return table.then(() => {
+    return table.then(() => new Promise((resolve, reject) => {
         const query = `
-            SELECT * FROM Characters
-        `
-
-        return new Promise((resolve, reject) => {
-            db.transaction((tx) =>
-                tx.executeSql(
-                    query,
-                    undefined,
-                    (_, resultSet: SQLResultSet) => {
-                        Logger.i(LOG_TAG, `getCharactersList ${resultSet}`)
-                        resolve(parseCharactersList(resultSet))
-                    },
-                    (_, error) => {
-                        Logger.e(LOG_TAG, error.message)
-                        reject(error)
-                        return false
-                    }
-                )
+                SELECT * FROM ${TABLE_NAME}
+            `
+        db.transaction((tx) =>
+            tx.executeSql(
+                query,
+                undefined,
+                (_, resultSet: SQLResultSet) => {
+                    Logger.i(LOG_TAG, `getCharactersList ${resultSet}`)
+                    resolve(parseCharactersList(resultSet))
+                },
+                (_, error) => {
+                    Logger.e(LOG_TAG, error.message)
+                    reject(error)
+                    return false
+                }
             )
-        })
-    })
+        )
+    }))
 }
 
 export function searchCharacters(searchText: string): Promise<CharactersListCacheDto> {
-    return table.then(() => {
+    return table.then(() => new Promise((resolve, reject) => {
         const searchTextFormatted = searchText.toLowerCase()
         const query = `
-            SELECT * FROM Characters WHERE INSTR(LOWER(name), ?) > 0 OR INSTR(?, LOWER(name)) > 0
-        `
+                SELECT * FROM ${TABLE_NAME} WHERE INSTR(LOWER(name), ?) > 0 OR INSTR(?, LOWER(name)) > 0
+            `
         const args = [
             searchTextFormatted,
             searchTextFormatted,
         ]
-
-        return new Promise((resolve, reject) => {
-            db.transaction((tx) => {
-                tx.executeSql(
-                    query,
-                    args,
-                    (_, resultSet: SQLResultSet) => {
-                        Logger.i(LOG_TAG, `searchCharacters ${resultSet}`)
-                        resolve(parseCharactersList(resultSet))
-                    },
-                    (_, error) => {
-                        Logger.e(LOG_TAG, error.message)
-                        reject(error)
-                        return false
-                    }
-                )
-            })
+        db.transaction((tx) => {
+            tx.executeSql(
+                query,
+                args,
+                (_, resultSet: SQLResultSet) => {
+                    Logger.i(LOG_TAG, `searchCharacters ${resultSet}`)
+                    resolve(parseCharactersList(resultSet))
+                },
+                (_, error) => {
+                    Logger.e(LOG_TAG, error.message)
+                    reject(error)
+                    return false
+                }
+            )
         })
-    })
+    }))
 }
 
 function createTable(): Promise<void> {
-    const query = `
-        CREATE TABLE IF NOT EXISTS Characters(
-            id INTEGER PRIMARY KEY NOT NULL,
-            name TEXT NOT NULL,
-            films TEXT NOT NULL,
-            shortFilms TEXT NOT NULL,
-            tvShows TEXT NOT NULL,
-            videoGames TEXT NOT NULL,
-            parkAttractions TEXT NOT NULL,
-            allies TEXT NOT NULL,
-            enemies TEXT NOT NULL,
-            imageUrl TEXT NULL,
-            url TEXT NULL
-        );
-    `
     return new Promise((resolve, reject) => {
+        const query = `
+            CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(
+                id INTEGER PRIMARY KEY NOT NULL,
+                name TEXT NOT NULL,
+                films TEXT NOT NULL,
+                shortFilms TEXT NOT NULL,
+                tvShows TEXT NOT NULL,
+                videoGames TEXT NOT NULL,
+                parkAttractions TEXT NOT NULL,
+                allies TEXT NOT NULL,
+                enemies TEXT NOT NULL,
+                imageUrl TEXT NULL,
+                url TEXT NULL
+            )
+        `
         db.transaction(
             (tx) => {
                 tx.executeSql(
