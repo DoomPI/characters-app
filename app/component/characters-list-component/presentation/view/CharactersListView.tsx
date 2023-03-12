@@ -1,4 +1,4 @@
-import {FlatList, Image, Text, TextInput, View} from "react-native";
+import {FlatList, Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import React from "react";
 import {styles} from "./CharactersListStyles";
 import {Logger} from "../../../../core/logger/Logger";
@@ -57,14 +57,19 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
                     onRefresh={() => this.fetchCharactersList()}
                     refreshing={this.state.isFetching}
                     renderItem={({item}) =>
-                        <Image
-                            style={styles.characterImage}
-                            source={
-                                item.imageUrl
-                                    ? {uri: item.imageUrl}
-                                    : {}
-                            }
-                        />
+                        <TouchableOpacity
+                            style={styles.charactersListItem}
+                            onPress={() => this.props.onItemPress(item)}
+                        >
+                            <Image
+                                style={styles.characterImage}
+                                source={
+                                    item.imageUrl
+                                        ? {uri: item.imageUrl}
+                                        : {}
+                                }
+                            />
+                        </TouchableOpacity>
                     }
                 />
             </View>

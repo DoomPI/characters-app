@@ -34,11 +34,16 @@ export const styles = StyleSheet.create({
         color: "#FFFFFF"
     },
 
-    characterImage: {
+    charactersListItem: {
         flex: 1,
         margin: 5,
         height: 200,
         borderWidth: 1,
         borderColor: "#000000",
+    },
+
+    characterImage: {
+        width: "100%",
+        height: "100%",
     },
 })
