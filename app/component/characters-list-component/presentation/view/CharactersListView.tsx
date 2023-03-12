@@ -1,4 +1,4 @@
-import {FlatList, Image, TextInput, View} from "react-native";
+import {FlatList, Image, Text, TextInput, View} from "react-native";
 import React from "react";
 import {styles} from "./CharactersListStyles";
 import {Logger} from "../../../../core/logger/Logger";
@@ -32,21 +32,26 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
     render() {
         return (
             <View style={styles.charactersMainView}>
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder={"Search..."}
-                    onSubmitEditing={(event) =>
-                        this.props.presenter
-                            .searchCharacters(event.nativeEvent.text)
-                            .then(characters => {
-                                Logger.i(LOG_TAG, `Setting characters ${characters}`)
-                                this.setState({characters: characters.data})
-                            })
-                    }
-                />
+                <View style={styles.searchInputContainer}>
+                    <Text style={styles.charactersListTitle}>
+                        Disney
+                    </Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder={"Search..."}
+                        placeholderTextColor={"#FFFFFF4D"}
+                        onSubmitEditing={(event) =>
+                            this.props.presenter
+                                .searchCharacters(event.nativeEvent.text)
+                                .then(characters => {
+                                    Logger.i(LOG_TAG, `Setting characters ${characters}`)
+                                    this.setState({characters: characters.data})
+                                })
+                        }
+                    />
+                </View>
 
                 <FlatList
-                    style={styles.charactersList}
                     numColumns={3}
                     data={this.state.characters}
                     onRefresh={() => this.fetchCharactersList()}

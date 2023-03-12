@@ -4,7 +4,6 @@ import {
 import {View} from "react-native";
 import AppStatusBar from "../component/status-bar-component/presentation/view/AppStatusBar";
 import {charactersListModule} from "./di/CharactersAppModule";
-import {styles} from "./CharactersAppStyles";
 
 export default function CharactersApp() {
 
@@ -13,9 +12,7 @@ export default function CharactersApp() {
     return (
         <View>
             <AppStatusBar/>
-            <View style={styles.mainContentView}>
-                <CharactersListView presenter={charactersListProps.presenter}/>
-            </View>
+            <CharactersListView presenter={charactersListProps.presenter}/>
         </View>
     )
 }
