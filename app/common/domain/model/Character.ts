@@ -1,15 +1,15 @@
 export class Character {
-    id: number
-    name: string
-    films: string[]
-    shortFilms: string[]
-    tvShows: string[]
-    videoGames: string[]
-    parkAttractions: string[]
-    allies: string[]
-    enemies: string[]
-    imageUrl?: string
-    url?: string
+    readonly id: number
+    readonly name: string
+    readonly films: string[]
+    readonly shortFilms: string[]
+    readonly tvShows: string[]
+    readonly videoGames: string[]
+    readonly parkAttractions: string[]
+    readonly allies: string[]
+    readonly enemies: string[]
+    readonly imageUrl: string | null
+    readonly url: string | null
 
     constructor(
         id: number,
@@ -21,8 +21,8 @@ export class Character {
         parkAttractions: string[],
         allies: string[],
         enemies: string[],
-        imageUrl?: string,
-        url?: string,
+        imageUrl: string | null,
+        url: string | null,
     ) {
         this.id = id
         this.name = name
