@@ -17,33 +17,43 @@ export const styles = StyleSheet.create({
         backgroundColor: "#CA3701",
     },
 
-    charactersListTitle: {
-        flex: 3,
+    backButton: {
         fontWeight: "bold",
         fontSize: 20,
         color: "#FFFFFF",
     },
 
-    searchInput: {
-        flex: 4,
-        padding: 6,
-        borderWidth: 2,
-        borderRadius: 4,
-        borderColor: "#692806",
-        fontSize: 16,
-        color: "#FFFFFF"
+    mainBackground: {
+        width: "100%",
+        height: "100%",
     },
 
-    charactersListItem: {
-        flex: 1,
-        margin: 5,
-        height: 200,
-        borderWidth: 1,
-        borderColor: "#000000",
+    gradient: {
+        width: "100%",
+        height: "100%"
+    },
+
+    characterName: {
+        fontWeight: "bold",
+        fontSize: 20,
+        color: "#FFFFFF",
+    },
+
+    characterMainInfoContainer: {
+        width: "100%",
+        alignItems: "center",
+        padding: 32,
     },
 
     characterImage: {
-        width: "100%",
-        height: "100%",
+        height: 400,
+        width: 300,
+        margin: 8,
+    },
+
+    characterInfo: {
+        padding: 16,
+        fontSize: 16,
+        color: "#FFFFFF",
     },
 })
