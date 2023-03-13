@@ -12,7 +12,7 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
     constructor(props: CharactersListViewProps) {
         super(props)
         this.state = {
-            isFetching: false,
+            isLoading: false,
             characters: [],
         }
     }
@@ -22,17 +22,17 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
     }
 
     private fetchCharactersList() {
-        this.setState({isFetching: true})
+        this.setState({isLoading: true})
         this.props.presenter
             .getCharactersList()
             .then(characters => this.setState({characters: characters.data}))
-            .then(() => this.setState({isFetching: false}))
+            .then(() => this.setState({isLoading: false}))
     }
 
     render() {
         return (
             <View style={styles.charactersMainView}>
-                <View style={styles.searchInputContainer}>
+                <View style={styles.topPanel}>
                     <Text style={styles.charactersListTitle}>
                         Disney
                     </Text>
@@ -55,7 +55,7 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
                     numColumns={3}
                     data={this.state.characters}
                     onRefresh={() => this.fetchCharactersList()}
-                    refreshing={this.state.isFetching}
+                    refreshing={this.state.isLoading}
                     renderItem={({item}) =>
                         <TouchableOpacity
                             style={styles.charactersListItem}

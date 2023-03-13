@@ -1,6 +1,6 @@
 import {Character} from "../../../../common/domain/model/Character";
 
 export type CharactersListViewState = {
-    isFetching: boolean,
+    isLoading: boolean,
     characters: Character[],
 }
