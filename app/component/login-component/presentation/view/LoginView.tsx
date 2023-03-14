@@ -26,9 +26,9 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewState> {
                             style={styles.textInput}
                             autoCapitalize={"none"}
                             placeholder={"Email"}
-                            onBlur={(event) => {
+                            onChangeText={(text) => {
                                 this.setState({
-                                    email: event.nativeEvent.text.trim(),
+                                    email: text.trim(),
                                 })
                             }}
                         />
@@ -37,9 +37,9 @@ export class LoginView extends React.Component<LoginViewProps, LoginViewState> {
                             autoCapitalize={"none"}
                             secureTextEntry={true}
                             placeholder={"Password"}
-                            onBlur={(event) => {
+                            onChangeText={(text) => {
                                 this.setState({
-                                    password: event.nativeEvent.text.trim(),
+                                    password: text.trim(),
                                 })
                             }}
                         />
