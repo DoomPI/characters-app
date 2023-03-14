@@ -5,11 +5,10 @@ import {CharactersListUseCases} from "../domain/usecases/CharactersListUseCases"
 import {GetCharactersListUseCase} from "../domain/usecases/GetCharactersListUseCase";
 import {SearchCharacterUseCase} from "../domain/usecases/SearchCharacterUseCase";
 import {CharactersListRepositoryImpl} from "../data/repository/CharactersListRepositoryImpl";
-import {CharactersListViewProps} from "../presentation/view/CharactersListViewProps";
 
 export class CharactersListModuleImpl implements CharactersListModule {
 
-    assembleProps(): CharactersListViewProps {
+    assemble(): CharactersListPresenter {
         const repository = this.provideCharactersListRepository()
         const getCharactersListUseCase = this.provideGetCharactersListUseCase(
             repository
@@ -21,11 +20,9 @@ export class CharactersListModuleImpl implements CharactersListModule {
             getCharactersListUseCase,
             searchCharacterUseCase,
         )
-        const presenter = this.provideCharactersListPresenter(
+        return this.provideCharactersListPresenter(
             useCases,
         )
-
-        return {presenter}
     }
 
     provideCharactersListPresenter(

@@ -3,10 +3,9 @@ import {CharactersListPresenter} from "../presentation/presenter/CharactersListP
 import {CharactersListUseCases} from "../domain/usecases/CharactersListUseCases";
 import {GetCharactersListUseCase} from "../domain/usecases/GetCharactersListUseCase";
 import {SearchCharacterUseCase} from "../domain/usecases/SearchCharacterUseCase";
-import {CharactersListViewProps} from "../presentation/view/CharactersListViewProps";
 
 export interface CharactersListModule {
-    assembleProps(): CharactersListViewProps
+    assemble(): CharactersListPresenter
 
     provideCharactersListPresenter(
         charactersListUseCases: CharactersListUseCases,
