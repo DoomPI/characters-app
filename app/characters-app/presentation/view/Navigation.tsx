@@ -3,12 +3,18 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {CharactersListScreen} from "./screen/CharactersListScreen";
 import {CharacterInfoScreen} from "./screen/CharacterInfoScreen";
 import {Character} from "../../../common/domain/model/Character";
+import {LoginScreen} from "./screen/LoginScreen";
 
 const Stack = createStackNavigator<StackParamList>()
 
 export default function MainStack() {
     return (
-        <Stack.Navigator initialRouteName={'CharactersListScreen'}>
+        <Stack.Navigator initialRouteName={'LoginScreen'}>
+            <Stack.Screen
+                name={'LoginScreen'}
+                component={LoginScreen}
+                options={{headerShown: false}}
+            />
             <Stack.Screen
                 name={'CharactersListScreen'}
                 component={CharactersListScreen}
@@ -24,6 +30,8 @@ export default function MainStack() {
 }
 
 export type StackParamList = {
+
+    LoginScreen: undefined,
     CharactersListScreen: undefined,
     CharacterInfo: { character: Character },
 }

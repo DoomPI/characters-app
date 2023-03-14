@@ -3,7 +3,7 @@ import {StackParamList} from "../Navigation";
 import React from "react";
 import {CharacterInfoView} from "../../../../component/character-info-component/presentation/view/CharacterInfoView";
 
-export interface CharacterInfoScreenNavigationProps {
+interface CharacterInfoScreenNavigationProps {
     navigation: NavigationProp<StackParamList, 'CharacterInfo'>
     route: RouteProp<StackParamList, 'CharacterInfo'>
 }
