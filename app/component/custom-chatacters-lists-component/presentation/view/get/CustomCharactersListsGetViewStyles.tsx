@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
 
     mainContentView: {
         height: "100%",
-        backgroundColor: "#333333",
+        backgroundColor: "#CA3701",
         padding: 16,
         paddingTop: 16,
     },
@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
     mainTitleContainer: {
         alignSelf: "flex-start",
         alignItems: "center",
-        backgroundColor: "#333333",
-        paddingBottom: "17%",
         width: "50%",
         padding: 8,
+        paddingBottom: "12%",
+        backgroundColor: "#CA3701",
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
     },
@@ -26,49 +26,64 @@ export const styles = StyleSheet.create({
         color: "#FFFFFF",
     },
 
-    textInput: {
+    textInputSearch: {
         marginBottom: 8,
         padding: 16,
         fontSize: 20,
         borderWidth: 2,
         borderRadius: 12,
-        borderColor: "#CA3701",
+        borderColor: "#333333",
         backgroundColor: "#FFFFFF",
     },
 
-    textInputSubmitButtonContainer: {
-        flexDirection: "row",
-        justifyContent: "flex-end",
+    textInputContainer: {
+        flexDirection: "column",
         marginTop: 8,
         marginBottom: 8,
     },
 
-    textInputSubmitButton: {
+    textInputAdd: {
+        marginBottom: 8,
+        padding: 16,
+        fontSize: 20,
+        borderWidth: 2,
+        borderRadius: 12,
+        borderColor: "#333333",
+        backgroundColor: "#FFFFFF",
+    },
+
+    customListAddButton: {
+        alignSelf: "flex-end",
         alignItems: "center",
         padding: 8,
-        backgroundColor: "#CA3701",
+        backgroundColor: "#333333",
         borderRadius: 12,
     },
 
-    textInputSubmitButtonText: {
+    customListAddButtonText: {
         textAlignVertical: "center",
         fontWeight: "bold",
         fontSize: 20,
         color: "#FFFFFF",
     },
 
-    commentTextContainer: {
+    customListItemContainer: {
+        justifyContent: "space-between",
         flex: 1,
         marginTop: 8,
         marginBottom: 8,
         padding: 8,
         borderWidth: 1,
         borderRadius: 4,
+        borderColor: "#FFFFFF",
     },
 
-    commentText: {
-        textAlign: "left",
-        fontSize: 16,
+    customListItemNameText: {
+        alignSelf: "flex-start",
+        alignItems: "center",
+        textAlignVertical: "center",
+        fontWeight: "bold",
+        fontSize: 20,
         color: "#FFFFFF",
     },
 })
