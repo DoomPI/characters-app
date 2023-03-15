@@ -49,6 +49,7 @@ export const styles = StyleSheet.create({
         height: 400,
         width: 300,
         margin: 8,
+        borderRadius: 32,
     },
 
     characterInfo: {
