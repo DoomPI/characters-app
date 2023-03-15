@@ -8,8 +8,8 @@ import {
 } from "../../../../component/character-comments-component/presentation/view/CharacterCommentsView";
 import {characterCommentsModule, customCharactersListsModule} from "../../../di/CharactersAppModule";
 import {
-    CustomCharactersListsBottomSheetView
-} from "../../../../component/custom-chatacters-lists-component/presentation/view/bottomsheet/CustomCharactersListsBottomSheetView";
+    CustomCharactersListsAddView
+} from "../../../../component/custom-chatacters-lists-component/presentation/view/add/CustomCharactersListsAddView";
 
 interface CharacterInfoScreenNavigationProps {
     navigation: NavigationProp<StackParamList, 'CharacterInfo'>
@@ -22,7 +22,7 @@ export const CharacterInfoScreen = ({navigation, route}: CharacterInfoScreenNavi
         navigation.navigate('CharactersListScreen')
 
     const characterCommentsPresenter = characterCommentsModule.assemble()
-    const customCharactersListsBottomSheetPresenter = customCharactersListsModule.assembleBottomSheetPresenter()
+    const customCharactersListsAddPresenter = customCharactersListsModule.assembleAddPresenter()
     return (
         <View>
             <CharacterInfoView
@@ -33,9 +33,9 @@ export const CharacterInfoScreen = ({navigation, route}: CharacterInfoScreenNavi
                 characterId={character.id}
                 presenter={characterCommentsPresenter}
             />
-            <CustomCharactersListsBottomSheetView
+            <CustomCharactersListsAddView
                 character={character}
-                presenter={customCharactersListsBottomSheetPresenter}
+                presenter={customCharactersListsAddPresenter}
             />
         </View>
     )

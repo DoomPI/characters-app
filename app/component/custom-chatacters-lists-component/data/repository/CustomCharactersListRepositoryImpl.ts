@@ -37,6 +37,11 @@ export class CustomCharactersListRepositoryImpl implements CustomCharactersListR
             ))
     }
 
+    getCustomCharactersListByName(listName: string): Promise<CustomCharactersList> {
+        return getCustomCharactersListByNameFromCache(listName)
+            .then(dto => deserialize(dto))
+    }
+
     searchCustomCharactersList(searchText: string): Promise<CustomCharactersList[]> {
         if (searchText == "") {
             return this.getCustomCharactersLists()

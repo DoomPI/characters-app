@@ -1,14 +1,14 @@
 import React from "react";
-import {CustomCharactersListsBottomSheetViewProps} from "./CustomCharactersListsBottomSheetViewProps";
-import {CustomCharactersListsBottomSheetViewState} from "./CustomCharactersListsBottomSheetViewState";
+import {CustomCharactersListsAddViewProps} from "./CustomCharactersListsAddViewProps";
+import {CustomCharactersListsAddViewState} from "./CustomCharactersListsAddViewState";
 import BottomSheet from "reanimated-bottom-sheet";
 import {FlatList, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {styles} from "./CustomCharactersListsBottomSheetViewStyles";
+import {styles} from "./CustomCharactersListsAddViewStyles";
 
-export class CustomCharactersListsBottomSheetView
-    extends React.Component<CustomCharactersListsBottomSheetViewProps, CustomCharactersListsBottomSheetViewState> {
+export class CustomCharactersListsAddView
+    extends React.Component<CustomCharactersListsAddViewProps, CustomCharactersListsAddViewState> {
 
-    constructor(props: CustomCharactersListsBottomSheetViewProps) {
+    constructor(props: CustomCharactersListsAddViewProps) {
         super(props)
         this.state = {
             lists: [],
@@ -16,7 +16,7 @@ export class CustomCharactersListsBottomSheetView
     }
 
     componentDidMount() {
-        this.fetchCharacterCustomLists()
+        this.fetchCustomCharactersLists()
     }
 
     render() {
@@ -28,7 +28,7 @@ export class CustomCharactersListsBottomSheetView
                     </View>
                 }
                 enabledBottomInitialAnimation={true}
-                snapPoints={["60%", "10%"]}
+                snapPoints={["60%", "12%"]}
                 initialSnap={1}
                 renderContent={() =>
                     <View style={styles.mainContentView}>
@@ -59,7 +59,7 @@ export class CustomCharactersListsBottomSheetView
                                                 )
                                         }
                                     >
-                                        <Text style={styles.customListAddButtonText}>Add</Text>
+                                        <Text style={styles.customListAddButtonText}>Add to this list</Text>
                                     </TouchableOpacity>
                                 </View>
                             }
@@ -70,7 +70,7 @@ export class CustomCharactersListsBottomSheetView
         )
     }
 
-    private fetchCharacterCustomLists() {
+    private fetchCustomCharactersLists() {
         this.props.presenter
             .getCustomCharactersLists()
             .then(lists => this.setState({

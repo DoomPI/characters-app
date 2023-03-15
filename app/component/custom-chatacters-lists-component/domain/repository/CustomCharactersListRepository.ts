@@ -12,5 +12,7 @@ export interface CustomCharactersListRepository {
 
     getCustomCharactersLists(): Promise<CustomCharactersList[]>
 
+    getCustomCharactersListByName(listName: string): Promise<CustomCharactersList>
+
     searchCustomCharactersList(searchText: string): Promise<CustomCharactersList[]>
 }

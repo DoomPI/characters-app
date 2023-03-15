@@ -29,7 +29,7 @@ export class CharacterCommentsView
                     </View>
                 }
                 enabledBottomInitialAnimation={true}
-                snapPoints={["60%", "15%"]}
+                snapPoints={["60%", "17%"]}
                 initialSnap={1}
                 renderContent={() =>
                     <View style={styles.mainContentView}>

@@ -3,7 +3,7 @@ import {AddCharacterToCustomListUseCase} from "../AddCharacterToCustomListUseCas
 import {Character} from "../../../../../common/domain/model/Character";
 import {GetCustomCharactersListsUseCase} from "../GetCustomCharactersListsUseCase";
 
-export class CustomCharactersListsBottomSheetUseCases {
+export class CustomCharactersListsAddUseCases {
 
     private readonly addCharacterToCustomListUseCase: AddCharacterToCustomListUseCase
 

@@ -4,6 +4,9 @@ import {styles} from "./CharactersListStyles";
 import {Logger} from "../../../../core/logger/Logger";
 import {CharactersListViewProps} from "./CharactersListViewProps";
 import {CharactersListViewState} from "./CharactersListViewState";
+import {
+    CustomCharactersListsGetView
+} from "../../../custom-chatacters-lists-component/presentation/view/get/CustomCharactersListsGetView";
 
 const LOG_TAG = "CharactersListView"
 
@@ -23,7 +26,7 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
 
     private fetchCharactersList() {
         this.setState({isLoading: true})
-        this.props.presenter
+        this.props.charactersListPresenter
             .getCharactersList()
             .then(characters => this.setState({characters: characters.data}))
             .then(() => this.setState({isLoading: false}))
@@ -41,7 +44,7 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
                         placeholder={"Search..."}
                         placeholderTextColor={"#FFFFFF4D"}
                         onSubmitEditing={(event) =>
-                            this.props.presenter
+                            this.props.charactersListPresenter
                                 .searchCharacters(event.nativeEvent.text)
                                 .then(characters => {
                                     Logger.i(LOG_TAG, `Setting characters ${characters}`)
@@ -71,6 +74,20 @@ export class CharactersListView extends React.Component<CharactersListViewProps,
                             />
                         </TouchableOpacity>
                     }
+                />
+
+                <CustomCharactersListsGetView
+                    presenter={this.props.customCharactersListsGetPresenter}
+                    onItemClick={(listName) => {
+                        this.props.customCharactersListsGetPresenter
+                            .getCustomCharacterListByName(listName)
+                            .then(list => {
+                                Logger.i(LOG_TAG, `Setting custom list `)
+                                this.setState({
+                                    characters: list.characters,
+                                })
+                            })
+                    }}
                 />
             </View>
         )

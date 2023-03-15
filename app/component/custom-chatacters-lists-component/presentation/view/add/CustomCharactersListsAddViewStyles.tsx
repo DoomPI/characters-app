@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         width: "50%",
         padding: 8,
+        paddingBottom: "12%",
         backgroundColor: "#CA3701",
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,

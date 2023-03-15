@@ -1,6 +1,6 @@
 import {CustomCharactersList} from "../../../domain/model/CustomCharactersList";
 
-export type CustomCharactersListsBottomSheetViewState = {
+export type CustomCharactersListsAddViewState = {
 
     lists: CustomCharactersList[],
 }

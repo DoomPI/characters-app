@@ -1,18 +1,22 @@
 import {CustomCharactersListModule} from "./CustomCharactersListModule";
 import {
-    CustomCharactersListBottomSheetPresenter
-} from "../presentation/presenter/bottomsheet/CustomCharactersListBottomSheetPresenter";
+    CustomCharactersListsAddPresenter
+} from "../presentation/presenter/add/CustomCharactersListsAddPresenter";
 import {AddCharacterToCustomListUseCase} from "../domain/usecases/AddCharacterToCustomListUseCase";
 import {
-    CustomCharactersListsBottomSheetUseCases
-} from "../domain/usecases/bottomsheet/CustomCharactersListsBottomSheetUseCases";
+    CustomCharactersListsAddUseCases
+} from "../domain/usecases/add/CustomCharactersListsAddUseCases";
 import {CustomCharactersListRepository} from "../domain/repository/CustomCharactersListRepository";
 import {GetCustomCharactersListsUseCase} from "../domain/usecases/GetCustomCharactersListsUseCase";
 import {SearchCustomCharactersListUseCase} from "../domain/usecases/SearchCustomCharactersListUseCase";
 import {CustomCharactersListRepositoryImpl} from "../data/repository/CustomCharactersListRepositoryImpl";
+import {CustomCharactersListsGetUseCases} from "../domain/usecases/get/CustomCharactersListsGetUseCases";
+import {CustomCharactersListsGetPresenter} from "../presentation/presenter/get/CustomCharactersListsGetPresenter";
+import {AddCustomCharactersListUseCase} from "../domain/usecases/AddCustomCharactersListUseCase";
+import {GetCustomCharactersListByNameUseCase} from "../domain/usecases/GetCustomCharactersListByNameUseCase";
 
 export class CustomCharacterListModuleImpl implements CustomCharactersListModule {
-    assembleBottomSheetPresenter(): CustomCharactersListBottomSheetPresenter {
+    assembleAddPresenter(): CustomCharactersListsAddPresenter {
         const customCharactersListRepository = this.provideCustomCharactersListRepository()
         const addCharacterToCustomListUseCase = this.provideAddCharacterToCustomListUseCase(
             customCharactersListRepository,
@@ -23,31 +27,80 @@ export class CustomCharacterListModuleImpl implements CustomCharactersListModule
         const searchCustomCharactersListUseCase = this.provideSearchCustomCharactersListUseCase(
             customCharactersListRepository,
         )
-        const useCases = this.provideCustomCharactersListBottomSheetUseCases(
+        const useCases = this.provideCustomCharactersListsAddUseCases(
             addCharacterToCustomListUseCase,
             getCustomCharactersListsUseCase,
             searchCustomCharactersListUseCase,
         )
 
-        return this.provideCustomCharactersListBottomSheetPresenter(
+        return this.provideCustomCharactersListsAddPresenter(
             useCases,
         )
     }
 
-    provideCustomCharactersListBottomSheetPresenter(useCases: CustomCharactersListsBottomSheetUseCases): CustomCharactersListBottomSheetPresenter {
-        return new CustomCharactersListBottomSheetPresenter(
+    assembleGetPresenter(): CustomCharactersListsGetPresenter {
+        const customCharactersListRepository = this.provideCustomCharactersListRepository()
+        const addCustomCharactersListsUseCase = this.provideAddCustomCharactersListUseCase(
+            customCharactersListRepository,
+        )
+        const getCustomCharactersListsUseCase = this.provideGetCustomCharactersListsUseCase(
+            customCharactersListRepository,
+        )
+        const getCustomCharactersListByNameUseCase = this.provideGetCustomCharactersListByNameUseCase(
+            customCharactersListRepository,
+        )
+
+        const searchCustomCharactersListUseCase = this.provideSearchCustomCharactersListUseCase(
+            customCharactersListRepository,
+        )
+        const useCases = this.provideCustomCharactersListsGetUseCases(
+            addCustomCharactersListsUseCase,
+            getCustomCharactersListsUseCase,
+            getCustomCharactersListByNameUseCase,
+            searchCustomCharactersListUseCase,
+        )
+
+        return this.provideCustomCharactersListsGetPresenter(
             useCases,
         )
     }
 
-    provideCustomCharactersListBottomSheetUseCases(
+    provideCustomCharactersListsAddPresenter(useCases: CustomCharactersListsAddUseCases): CustomCharactersListsAddPresenter {
+        return new CustomCharactersListsAddPresenter(
+            useCases,
+        )
+    }
+
+    provideCustomCharactersListsGetPresenter(
+        useCases: CustomCharactersListsGetUseCases,
+    ): CustomCharactersListsGetPresenter {
+        return new CustomCharactersListsGetPresenter(
+            useCases,
+        )
+    }
+
+    provideCustomCharactersListsAddUseCases(
         addCharacterToCustomListUseCase: AddCharacterToCustomListUseCase,
         getCustomCharactersListsUseCase: GetCustomCharactersListsUseCase,
         searchCustomCharacterListUseCase: SearchCustomCharactersListUseCase,
-        ): CustomCharactersListsBottomSheetUseCases {
-        return new CustomCharactersListsBottomSheetUseCases(
+        ): CustomCharactersListsAddUseCases {
+        return new CustomCharactersListsAddUseCases(
             addCharacterToCustomListUseCase,
             getCustomCharactersListsUseCase,
+            searchCustomCharacterListUseCase,
+        )
+    }
+
+    provideCustomCharactersListsGetUseCases(
+        addCustomCharactersListUseCase: AddCustomCharactersListUseCase,
+        getCustomCharactersListsUseCase: GetCustomCharactersListsUseCase,
+        getCustomCharactersListByNameUseCase: GetCustomCharactersListByNameUseCase,
+        searchCustomCharacterListUseCase: SearchCustomCharactersListUseCase,
+    ): CustomCharactersListsGetUseCases {
+        return new CustomCharactersListsGetUseCases(
+            addCustomCharactersListUseCase,
+            getCustomCharactersListsUseCase,
+            getCustomCharactersListByNameUseCase,
             searchCustomCharacterListUseCase,
         )
     }
@@ -58,8 +111,26 @@ export class CustomCharacterListModuleImpl implements CustomCharactersListModule
         )
     }
 
-    provideGetCustomCharactersListsUseCase(customCharactersListRepository: CustomCharactersListRepository): GetCustomCharactersListsUseCase {
+    provideAddCustomCharactersListUseCase(
+        customCharactersListRepository: CustomCharactersListRepository,
+    ): AddCustomCharactersListUseCase {
+        return new AddCustomCharactersListUseCase(
+            customCharactersListRepository,
+        )
+    }
+
+    provideGetCustomCharactersListsUseCase(
+        customCharactersListRepository: CustomCharactersListRepository,
+    ): GetCustomCharactersListsUseCase {
         return new GetCustomCharactersListsUseCase(
+            customCharactersListRepository,
+        )
+    }
+
+    provideGetCustomCharactersListByNameUseCase(
+        customCharactersListRepository: CustomCharactersListRepository,
+    ): GetCustomCharactersListByNameUseCase {
+        return new GetCustomCharactersListByNameUseCase(
             customCharactersListRepository,
         )
     }
