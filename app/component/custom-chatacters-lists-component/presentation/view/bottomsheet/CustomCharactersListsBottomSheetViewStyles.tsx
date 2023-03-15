@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
 
     mainContentView: {
         height: "100%",
-        backgroundColor: "#333333",
+        backgroundColor: "#CA3701",
         padding: 16,
         paddingTop: 16,
     },
@@ -12,10 +12,9 @@ export const styles = StyleSheet.create({
     mainTitleContainer: {
         alignSelf: "flex-start",
         alignItems: "center",
-        backgroundColor: "#333333",
-        paddingBottom: "10%",
         width: "50%",
         padding: 8,
+        backgroundColor: "#CA3701",
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
     },
@@ -32,7 +31,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         borderWidth: 2,
         borderRadius: 12,
-        borderColor: "#CA3701",
+        borderColor: "#333333",
         backgroundColor: "#FFFFFF",
     },
 
@@ -43,32 +42,39 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
     },
 
-    textInputSubmitButton: {
-        alignItems: "center",
-        padding: 8,
-        backgroundColor: "#CA3701",
-        borderRadius: 12,
-    },
-
-    textInputSubmitButtonText: {
-        textAlignVertical: "center",
-        fontWeight: "bold",
-        fontSize: 20,
-        color: "#FFFFFF",
-    },
-
-    commentTextContainer: {
+    customListItemContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
         flex: 1,
         marginTop: 8,
         marginBottom: 8,
         padding: 8,
         borderWidth: 1,
         borderRadius: 4,
+        borderColor: "#FFFFFF"
     },
 
-    commentText: {
-        textAlign: "left",
-        fontSize: 16,
+    customListItemNameText: {
+        alignSelf: "flex-start",
+        alignItems: "center",
+        textAlignVertical: "center",
+        fontWeight: "bold",
+        fontSize: 20,
+        color: "#FFFFFF",
+    },
+
+    customListAddButton: {
+        alignSelf: "flex-end",
+        alignItems: "center",
+        padding: 8,
+        backgroundColor: "#333333",
+        borderRadius: 12,
+    },
+
+    customListAddButtonText: {
+        textAlignVertical: "center",
+        fontWeight: "bold",
+        fontSize: 20,
         color: "#FFFFFF",
     },
 })

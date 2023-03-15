@@ -27,7 +27,7 @@ export function addCharacterComment(characterComment: CharacterCommentCacheDto):
                 return false
             },
             () => {
-                Logger.i(LOG_TAG, `addComment ${characterComment}`)
+                Logger.i(LOG_TAG, `addCharacterComment ${characterComment}`)
                 resolve()
             },
         )
@@ -47,7 +47,7 @@ export function getCharacterComments(characterId: number): Promise<CharacterComm
                 query,
                 args,
                 (_, resultSet: SQLResultSet) => {
-                    Logger.i(LOG_TAG, `getCharactersList ${resultSet}`)
+                    Logger.i(LOG_TAG, `getCharacterComments ${resultSet}`)
                     resolve(parseCharacterComments(resultSet))
                 },
                 (_, error) => {

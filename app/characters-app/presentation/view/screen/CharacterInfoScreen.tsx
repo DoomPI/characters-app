@@ -6,7 +6,10 @@ import {View} from "react-native";
 import {
     CharacterCommentsView
 } from "../../../../component/character-comments-component/presentation/view/CharacterCommentsView";
-import {characterCommentsModule} from "../../../di/CharactersAppModule";
+import {characterCommentsModule, customCharactersListsModule} from "../../../di/CharactersAppModule";
+import {
+    CustomCharactersListsBottomSheetView
+} from "../../../../component/custom-chatacters-lists-component/presentation/view/bottomsheet/CustomCharactersListsBottomSheetView";
 
 interface CharacterInfoScreenNavigationProps {
     navigation: NavigationProp<StackParamList, 'CharacterInfo'>
@@ -19,7 +22,7 @@ export const CharacterInfoScreen = ({navigation, route}: CharacterInfoScreenNavi
         navigation.navigate('CharactersListScreen')
 
     const characterCommentsPresenter = characterCommentsModule.assemble()
-    React.useRef(null);
+    const customCharactersListsBottomSheetPresenter = customCharactersListsModule.assembleBottomSheetPresenter()
     return (
         <View>
             <CharacterInfoView
@@ -29,6 +32,10 @@ export const CharacterInfoScreen = ({navigation, route}: CharacterInfoScreenNavi
             <CharacterCommentsView
                 characterId={character.id}
                 presenter={characterCommentsPresenter}
+            />
+            <CustomCharactersListsBottomSheetView
+                character={character}
+                presenter={customCharactersListsBottomSheetPresenter}
             />
         </View>
     )
